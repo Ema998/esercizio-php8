@@ -58,4 +58,11 @@ $company3 = new Company('Meta', 10000, 'Menlo Park');
 $company4 = new Company('Apple', 20000, 'Cupertino');
 $company5 = new Company('Esselunga', 5000, 'Italia');
 
+foreach (Company::$companies as $company){
+    $company->printDatiAzienda();
+    $company->printSpesaAnnua();
+}
+
+Company::printcalcoloSpesaAnnuaAziendeCompany();
+
 ?>
