@@ -37,18 +37,18 @@ class Company{
         }
     }
     
-    public function calcoloSpesaAnnuaAziendeCompany(){
+    public static function calcoloSpesaAnnuaAziendeCompany(){
         $totSpesaAnnuaAziendeCompany = 0;
         foreach (self::$companies as $company){
             if ($company instanceof Company) {
-                $totSpesaAnnuaAziendeCompany += $this->calcoloSpesaAnnuaAziendaCompany($company->totEmployees);
+                $totSpesaAnnuaAziendeCompany += $company->calcoloSpesaAnnuaAziendaCompany($company->totEmployees);
             }
         }
         return $totSpesaAnnuaAziendeCompany;
     }
     
     public static function printcalcoloSpesaAnnuaAziendeCompany($totSpesaAnnuaAziendeCompany){
-        echo $totSpesaAnnuaAziendeCompany;
+        echo "La somma delle spese delle aziende è di $totSpesaAnnuaAziendeCompany euro";
     }
 };
 
@@ -58,11 +58,17 @@ $company3 = new Company('Meta', 10000, 'Menlo Park');
 $company4 = new Company('Apple', 20000, 'Cupertino');
 $company5 = new Company('Esselunga', 5000, 'Italia');
 
-foreach (Company::$companies as $company){
-    $company->printDatiAzienda();
-    $company->printSpesaAnnua();
+//foreach company print spesaAnnua and DatiAzienda
+foreach (Company::$companies as $company) {
+    if ($company instanceof Company) {
+        $spesaAnnuaAziendaCompany = $company->calcoloSpesaAnnuaAziendaCompany($company->totEmployees);
+        $company->printDatiAzienda();
+        $company->printSpesaAnnua($spesaAnnuaAziendaCompany, Company::$companies);
+    }
 }
-
-Company::printcalcoloSpesaAnnuaAziendeCompany();
+//calcolo spesa annua aziende
+$totSpesaAnnuaAziendeCompany = Company::calcoloSpesaAnnuaAziendeCompany();
+//stampa spesa annua aziende
+Company::printcalcoloSpesaAnnuaAziendeCompany($totSpesaAnnuaAziendeCompany);
 
 ?>
